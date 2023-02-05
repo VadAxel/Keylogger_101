@@ -4,7 +4,7 @@ kelogger_101
 
 Requirements:
 
-python 3, pynput, sys, subprocess
+python 3, sys, subprocess
 
 Functions:
 
