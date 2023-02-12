@@ -1,10 +1,10 @@
 # Keylogger_101
 
-kelogger_101
+For educational purposes only.
 
 Requirements:
 
-python 3, sys, subprocess
+python 3, sys, subprocess, ctypes, threading, os
 
 Functions:
 
