@@ -17,7 +17,7 @@ Notes:
 
 * Replace os.system('ncat <command>') with your corresponding IP & Port
 * Variables need weird names to not get detected
-* Use base64 or similar when exec
+* base64 version exists
 
 Future features:
 
