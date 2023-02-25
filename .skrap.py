@@ -5,7 +5,7 @@ import sys
 import threading
 # Check if the `pynput` package is installed
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pynput'])
-subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'nmap'])
+subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'ncat'])
 from pynput.keyboard import Key, Listener
 
 
