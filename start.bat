@@ -1,2 +1,2 @@
 @echo off
-python3 .skrap.py
+python3 .kingen.py

